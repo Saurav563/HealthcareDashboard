@@ -8,6 +8,21 @@ df = pd.read_csv("final_predictions.csv")
 df['Date'] = pd.to_datetime(df['Date'])
 
 
+# Optional: load ARIMA forecast
+forecast_arima = pd.Series(
+    [77.88, 78.33, 77.79, 78.32, 77.81, 78.31, 77.82],
+    index=pd.date_range(start='2025-01-01', periods=7, freq='D'),
+    name="Predicted_Patient_Volume"
+)
+
+# Optional: load staff optimization result
+staff_allocation = np.array([4, 6, 7, 5, 8])
+staff_names = [f"Staff {i+1}" for i in range(len(staff_allocation))]
+
+# Optional: simulate overcrowding classifier output
+predicted_risk = 1  # 0 = Normal, 1 = High Risk
+
+
 # Page setup
 st.set_page_config(page_title="Hospital ML Dashboard", layout="wide")
 st.title("🏥 Hospital Forecasting & Optimization Dashboard")
@@ -54,3 +69,4 @@ st.metric("Total Assigned Hours", int(sum(staff_allocation)))
 # Footer
 st.markdown("---")
 st.caption("Built by Saurav | AI-Powered Hospital Planning Suite")
+
